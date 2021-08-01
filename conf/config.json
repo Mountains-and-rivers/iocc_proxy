@@ -1,0 +1,23 @@
+{
+  "proxy_arr": [{
+    "IP": "http://localhost:9001",
+    "hostname" : "group-node01",
+    "deploy": "asd asdasd asd",
+    "proxy_port": "8001",
+    "proxy_ip": "localhost"
+  },
+  {
+    "IP": "http://localhost:9001",
+    "hostname" : "group-node02",
+    "deploy": "asd asdasd asd",
+    "proxy_port": "8002",
+    "proxy_ip": "localhost"
+  },
+  {
+    "IP": "http://localhost:9001",
+    "hostname" : "group-node03",
+    "deploy": "asd asdasd asd",
+    "proxy_port": "8003",
+    "proxy_ip": "localhost"
+  }]
+}
