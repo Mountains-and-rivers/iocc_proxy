@@ -2,12 +2,13 @@ package main
 
 import (
 	"bytes"
+	"embed"
 	"fmt"
 	"github.com/bitly/go-simplejson"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"io/ioutil"
 	"log"
+	"net/http"
 	"net/url"
 )
 
@@ -27,6 +28,10 @@ func proxy_iocc(port string,proxyurl string) {
 	e.Logger.Fatal(e.Start(":" + port))
 }
 
+//go:embed static templates
+var local embed.FS
+//go:embed conf/config.json
+var s []byte
 func main() {
 	//type hostconfig struct {
 	//	IP string `json:"ip"`
@@ -40,11 +45,11 @@ func main() {
 	//}
 	//var hconfig hostconfigs
 	//portArr := []string{"8001", "8002", "8003", "8004", "8005","8006"}
-	plan, err := ioutil.ReadFile("conf/config.json")
-	if err != nil {
-		fmt.Println(err)
-	}
-	buf := bytes.NewBuffer(plan)
+	//plan, err := ioutil.ReadFile(s)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	buf := bytes.NewBuffer(s)
 	res, err := simplejson.NewFromReader(buf)
 	if err != nil || res == nil {
 		log.Fatal("something wrong when call NewFromReader")
@@ -58,11 +63,11 @@ func main() {
 		}
 	}
 		e := echo.New()
-		e.Static("/static", "static")
+	    e.GET("/static", echo.WrapHandler(http.FileServer(http.FS(local))))
 		e.File("/", "templates/login.html")
 		e.GET("/config", func(c echo.Context) error {
 			u := res
-			return c.JSON(200, u)
+			return c.JSON(200,u)
 		})
 		e.Logger.Fatal(e.Start(":2323"))
 }

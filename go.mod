@@ -7,4 +7,6 @@ require (
 	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/labstack/echo/v4 v4.4.0
+	github.com/markbates/pkger v0.17.1 // indirect
+	github.com/stretchr/testify v1.5.1 // indirect
 )
